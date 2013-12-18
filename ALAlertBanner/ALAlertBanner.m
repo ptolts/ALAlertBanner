@@ -156,7 +156,8 @@ static CGFloat const kForceHideAnimationDuration = 0.1f;
     _showAnimationDuration = 0.25;
     _hideAnimationDuration = 0.2;
     _isScheduledToHide = NO;
-    _bannerOpacity = 0.93f;
+//    _bannerOpacity = 0.93f;
+    _bannerOpacity = 1.0f;
     _secondsToShow = 3.5;
     _allowTapToDismiss = YES;
     _shouldForceHide = NO;
@@ -172,27 +173,31 @@ static CGFloat const kForceHideAnimationDuration = 0.1f;
     _titleLabel = [[UILabel alloc] init];
     _titleLabel.backgroundColor = [UIColor clearColor];
     _titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:13.f];
-    _titleLabel.textColor = [UIColor colorWithWhite:1.f alpha:0.9f];
-    _titleLabel.textAlignment = NSTextAlignmentLeft;
+//    _titleLabel.textColor = [UIColor colorWithWhite:1.f alpha:0.9f];
+    _titleLabel.textColor = [UIColor colorWithWhite:1.f alpha:1.0f];
+//    _titleLabel.textAlignment = NSTextAlignmentLeft;
+    _titleLabel.textAlignment = NSTextAlignmentCenter;
     _titleLabel.numberOfLines = 1;
     _titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-    _titleLabel.layer.shadowColor = [UIColor blackColor].CGColor;
-    _titleLabel.layer.shadowOffset = CGSizeMake(0.f, -1.f);
-    _titleLabel.layer.shadowOpacity = 0.3f;
-    _titleLabel.layer.shadowRadius = 0.f;
+//    _titleLabel.layer.shadowColor = [UIColor blackColor].CGColor;
+//    _titleLabel.layer.shadowOffset = CGSizeMake(0.f, -1.f);
+//    _titleLabel.layer.shadowOpacity = 0.3f;
+//    _titleLabel.layer.shadowRadius = 0.f;
     [self addSubview:_titleLabel];
     
     _subtitleLabel = [[UILabel alloc] init];
     _subtitleLabel.backgroundColor = [UIColor clearColor];
     _subtitleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:10.f];
-    _subtitleLabel.textColor = [UIColor colorWithWhite:1.f alpha:0.9f];
-    _subtitleLabel.textAlignment = NSTextAlignmentLeft;
+//    _subtitleLabel.textColor = [UIColor colorWithWhite:1.f alpha:0.9f];
+    _subtitleLabel.textColor = [UIColor colorWithWhite:1.f alpha:1.0f];
+//    _subtitleLabel.textAlignment = NSTextAlignmentLeft;
+    _subtitleLabel.textAlignment = NSTextAlignmentCenter;
     _subtitleLabel.numberOfLines = 0;
     _subtitleLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    _subtitleLabel.layer.shadowColor = [UIColor blackColor].CGColor;
-    _subtitleLabel.layer.shadowOffset = CGSizeMake(0.f, -1.f);
-    _subtitleLabel.layer.shadowOpacity = 0.3f;
-    _subtitleLabel.layer.shadowRadius = 0.f;
+//    _subtitleLabel.layer.shadowColor = [UIColor blackColor].CGColor;
+//    _subtitleLabel.layer.shadowOffset = CGSizeMake(0.f, -1.f);
+//    _subtitleLabel.layer.shadowOpacity = 0.3f;
+//    _subtitleLabel.layer.shadowRadius = 0.f;
     [self addSubview:_subtitleLabel];
 }
 
@@ -212,7 +217,7 @@ static CGFloat const kForceHideAnimationDuration = 0.1f;
             break;
             
         case ALAlertBannerStyleNotify:
-            self.styleImageView.image = [UIImage imageNamed:@"bannerNotify.png"];
+            self.styleImageView.image = [UIImage imageNamed:@"info.png"];
             break;
             
         case ALAlertBannerStyleWarning:
@@ -603,26 +608,29 @@ static CGFloat const kForceHideAnimationDuration = 0.1f;
     }
     
     self.styleImageView.frame = CGRectMake(kMargin, (self.frame.size.height/2.f) - (self.styleImageView.image.size.height/2.f), self.styleImageView.image.size.width, self.styleImageView.image.size.height);
-    self.titleLabel.frame = CGRectMake(self.styleImageView.frame.origin.x + self.styleImageView.frame.size.width + kMargin, kMargin, maxLabelSize.width, titleLabelHeight);
+//    self.titleLabel.frame = CGRectMake(self.styleImageView.frame.origin.x + self.styleImageView.frame.size.width + kMargin, kMargin, maxLabelSize.width, titleLabelHeight);
+//    self.subtitleLabel.frame = CGRectMake(self.titleLabel.frame.origin.x, self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height + (self.titleLabel.text == nil ? 0.f : kMargin/2.f), maxLabelSize.width, subtitleLabelHeight);
+    self.titleLabel.frame = CGRectMake(self.styleImageView.frame.origin.x + kMargin, kMargin, maxLabelSize.width, titleLabelHeight);
     self.subtitleLabel.frame = CGRectMake(self.titleLabel.frame.origin.x, self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height + (self.titleLabel.text == nil ? 0.f : kMargin/2.f), maxLabelSize.width, subtitleLabelHeight);
+    
     
     if (animated) {
         [UIView commitAnimations];
     }
     
-    if (self.showShadow) {
-        CGRect oldShadowPath = CGPathGetPathBoundingBox(self.layer.shadowPath);
-        CGRect newShadowPath = CGRectMake(self.bounds.origin.x - kMargin, self.bounds.origin.y, self.bounds.size.width + kMargin*2.f, self.bounds.size.height);
-        self.layer.shadowPath = [UIBezierPath bezierPathWithRect:newShadowPath].CGPath;
-        
-        if (animated) {
-            CABasicAnimation *shadowAnimation = [CABasicAnimation animationWithKeyPath:@"shadowPath"];
-            shadowAnimation.fromValue = (id)[UIBezierPath bezierPathWithRect:oldShadowPath].CGPath;
-            shadowAnimation.toValue = (id)[UIBezierPath bezierPathWithRect:newShadowPath].CGPath;
-            shadowAnimation.duration = boundsAnimationDuration;
-            [self.layer addAnimation:shadowAnimation forKey:@"shadowPath"];
-        }
-    }
+//    if (self.showShadow) {
+//        CGRect oldShadowPath = CGPathGetPathBoundingBox(self.layer.shadowPath);
+//        CGRect newShadowPath = CGRectMake(self.bounds.origin.x - kMargin, self.bounds.origin.y, self.bounds.size.width + kMargin*2.f, self.bounds.size.height);
+//        self.layer.shadowPath = [UIBezierPath bezierPathWithRect:newShadowPath].CGPath;
+//        
+//        if (animated) {
+//            CABasicAnimation *shadowAnimation = [CABasicAnimation animationWithKeyPath:@"shadowPath"];
+//            shadowAnimation.fromValue = (id)[UIBezierPath bezierPathWithRect:oldShadowPath].CGPath;
+//            shadowAnimation.toValue = (id)[UIBezierPath bezierPathWithRect:newShadowPath].CGPath;
+//            shadowAnimation.duration = boundsAnimationDuration;
+//            [self.layer addAnimation:shadowAnimation forKey:@"shadowPath"];
+//        }
+//    }
 }
 
 - (void)updatePositionAfterRotationWithY:(CGFloat)yPos animated:(BOOL)animated {    
@@ -705,14 +713,15 @@ static CGFloat const kForceHideAnimationDuration = 0.1f;
             fillColor = [UIColor colorWithRed:(173/255.0) green:(48/255.0) blue:(48/255.0) alpha:1.f];
             break;
         case ALAlertBannerStyleNotify:
-            fillColor = [UIColor colorWithRed:(48/255.0) green:(110/255.0) blue:(173/255.0) alpha:1.f];
+            fillColor = [UIColor colorWithRed:(24/255.0) green:(159.0/255.0) blue:(243.0/255.0) alpha:1];
+//            fillColor = [UIColor colorWithRed:(48/255.0) green:(110/255.0) blue:(173/255.0) alpha:1.f];
             break;
         case ALAlertBannerStyleWarning:
             fillColor = [UIColor colorWithRed:(211/255.0) green:(209/255.0) blue:(100/255.0) alpha:1.f];
             break;
     }
-    
-    NSArray *colorsArray = [NSArray arrayWithObjects:(id)[fillColor CGColor], (id)[[fillColor darkerColor] CGColor], nil];
+    NSArray *colorsArray = [NSArray arrayWithObjects:(id)[fillColor CGColor], (id)[fillColor  CGColor], nil];
+//    NSArray *colorsArray = [NSArray arrayWithObjects:(id)[fillColor CGColor], (id)[[fillColor darkerColor] CGColor], nil];    
     CGColorSpaceRef colorSpace =  CGColorSpaceCreateDeviceRGB();
     const CGFloat locations[2] = {0.f, 1.f};
     CGGradientRef gradient = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)colorsArray, locations);
@@ -722,10 +731,10 @@ static CGFloat const kForceHideAnimationDuration = 0.1f;
     CGGradientRelease(gradient);
     CGColorSpaceRelease(colorSpace);
     
-    CGContextSetFillColorWithColor(context, [UIColor colorWithRed:0.f green:0.f blue:0.f alpha:0.6f].CGColor);
-    CGContextFillRect(context, CGRectMake(0.f, rect.size.height - 1.f, rect.size.width, 1.f));
-    CGContextSetFillColorWithColor(context, [UIColor colorWithRed:1.f green:1.f blue:1.f alpha:0.3f].CGColor);
-    CGContextFillRect(context, CGRectMake(0.f, 0.f, rect.size.width, 1.f));
+//    CGContextSetFillColorWithColor(context, [UIColor colorWithRed:0.f green:0.f blue:0.f alpha:0.6f].CGColor);
+//    CGContextFillRect(context, CGRectMake(0.f, rect.size.height - 1.f, rect.size.width, 1.f));
+//    CGContextSetFillColorWithColor(context, [UIColor colorWithRed:1.f green:1.f blue:1.f alpha:0.3f].CGColor);
+//    CGContextFillRect(context, CGRectMake(0.f, 0.f, rect.size.width, 1.f));
 }
 
 - (id)nextAvailableViewController:(id)view {
